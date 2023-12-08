@@ -4,18 +4,21 @@ function CountrySearch(props) {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    console.log(event.target.value);
     countryServices.getAll().then((response) => {
       const countryNames = response
         .map((currentCountry) => {
           return currentCountry.name.common;
         })
         .filter((currentCountryName) => {
-          if (currentCountryName.includes(event.target.value)) {
+          if (
+            currentCountryName
+              .toLowerCase()
+              .includes(event.target.value.toLowerCase())
+          ) {
             return currentCountryName;
           }
         });
-      console.log(countryNames);
+      console.log("search filter:", countryNames);
       setCountryNames(countryNames);
     });
   };
